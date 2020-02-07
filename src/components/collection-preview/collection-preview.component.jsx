@@ -5,10 +5,10 @@ import CollectionItem from './../collection-item/collection-item.component';
 
 import './collection-preview.styles.scss';
 
-const CollectionPreview = ({title, items, routeName, history, match}) => {
+const CollectionPreview = ({title, items, history, match}) => {
   return (
   <div className='collection-preview'>
-    <div onClick={() => history.push(`${match.path}/${routeName}`)}>
+    <div onClick={() => history.push(`${match.path}/${title.toLowerCase()}`)}>
       <h1 className='title'>{title.toUpperCase()}</h1>
     </div>
     <div className='preview'>
