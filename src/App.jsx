@@ -7,12 +7,12 @@ import { selectCurrentUser } from './redux/user/user.selector';
 import { checkUserSessions } from './redux/user/user.action';
 
 import './App.scss';
-import Header from './components/header/header.component';
+import { default as Header } from './components/header/header.container';
 import HomePage from './pages/homepage/homepage.page';
 import ShopPage from './pages/shop/shop.page';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.page';
 import NoMatchPage from './pages/no-match/no-match.page';
-import CheckoutPage from './pages/checkout/checkout.component';
+import { default as CheckoutPage } from './pages/checkout/checkout.page.container';
 
 const App = ({ checkUserSessions, currentUser }) => {
   useEffect(() => {

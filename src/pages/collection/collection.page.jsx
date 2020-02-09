@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './collection.page.styles.scss';
-import CollectionItem from './../../components/collection-item/collection-item.component';
+import { default as  CollectionItem } from './../../components/collection-item/collection-item.container';
 
 const CollectionPage = ({collection}) => {
   const {title, items} = collection;

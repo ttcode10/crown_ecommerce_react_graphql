@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectCartHidden } from './../../redux/cart/cart.selector';
 import { selectCurrentUser } from './../../redux/user/user.selector';
 import { signOutStart } from './../../redux/user/user.action';
 
 import './header.styles.scss';
 import { ReactComponent as Logo } from './../../assets/crown.svg';
-import CartIcon from './../cart-icon/cart-icon.component';
-import CartDropdown from './../cart-dropdown/cart-dropdown.component';
+import { default as CartIcon } from './../cart-icon/cart-icon.container';
+import { default as CartDropdown} from './../cart-dropdown/cart-dropdown.container';
 
 const Header = ({currentUser, hidden, signOutStart}) => (
   <div className='header'>
@@ -30,7 +29,6 @@ const Header = ({currentUser, hidden, signOutStart}) => (
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  hidden: selectCartHidden
 });
 
 const mapDispatchToProps = dispatch => ({
