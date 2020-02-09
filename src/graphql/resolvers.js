@@ -6,11 +6,25 @@ export const typeDefs = gql`
     quantity: Int
   }
 
+  extend type DateTime {
+    nanoseconds: Int!
+    seconds: Int!
+  }
+
+  extend type User {
+    id: ID!
+    displayName: String!
+    email: String!
+    createdAt: DateTime!
+  }
+
   extend type Mutation {
     ToggleCartHidden: Boolean!
     AddItemToCart(item: Item!): [Item]!
     DecreaseCartItem(item: Item!): [Item]
     RemoveCartItem(item: Item!): [Item]
+    SetCurrentUser(user: User!): User!
+    ClearCart: [Item]
   }
 `;
 
@@ -35,6 +49,12 @@ const GET_CART_ITEM_COUNT = gql`
 const GET_CART_TOTAL_AMOUNT = gql`
   {
     cartTotalAmount @client
+  }
+`;
+
+const GET_CURRENT_USER = gql`
+  {
+    currentUser @client
   }
 `;
 
@@ -104,6 +124,34 @@ export const resolvers = {
       updateCartItems(cache, newCartItems);
 
       return newCartItems;
+    },
+
+    setCurrentUser: (_root, {user}, {cache}) => {
+      cache.writeQuery({
+        query: GET_CURRENT_USER,
+        data: {currentUser: user}
+      });
+
+      return user;
+    },
+
+    clearCart: (_root, _args, {cache}) => {
+      cache.writeQuery({
+        query: GET_CART_ITEM_COUNT,
+        data: {cartItemCount: 0}
+      });
+
+      cache.writeQuery({
+        query: GET_CART_TOTAL_AMOUNT,
+        data: {cartTotalAmount: 0}
+      });
+
+      cache.writeQuery({
+        query: GET_CART_ITEMS,
+        data: {cartItems: []}
+      });
+
+      return [];
     }
   }
-}
+};
